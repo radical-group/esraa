@@ -10,7 +10,7 @@ os.environ['RADICAL_ENTK_PROFILE'] = "True"
 os.environ['RADICAL_LOG_LVL'] = "DEBUG"
 os.environ['RADICAL_LOG_TGT'] = "radical.log"
 os.environ['RADICAL_PROFILE'] = "TRUE"
-os.environ['RADICAL_PILOT_DBURL'] = "mongodb://esraa:4U4bc6sxyJfHvbdP@129.114.17.185:27017/esraa"
+os.environ['RADICAL_PILOT_DBURL'] = "mongodb://esraa:<password>@129.114.17.185:27017/esraa"
 # Description of how the RabbitMQ process is accessible
 # No need to change/set any variables if you installed RabbitMQ has a system
 # process. If you are running RabbitMQ under a docker container or another
@@ -19,7 +19,7 @@ os.environ['RADICAL_PILOT_DBURL'] = "mongodb://esraa:4U4bc6sxyJfHvbdP@129.114.17
 hostname = os.environ.get('RMQ_HOSTNAME', 'localhost')
 port = int(os.environ.get('RMQ_PORT', 5672))
 username = os.environ.get('RMQ_USERNAME', 'esraa')
-password = os.environ.get('RMQ_PASSWORD', '4U4bc6sxyJfHvbdP')
+password = os.environ.get('RMQ_PASSWORD', <password>)
 
 if __name__ == '__main__':
     total_time = []
