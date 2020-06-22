@@ -1,0 +1,29 @@
+How to log run a job on one of our supercomputers:
+1- in your home directory, go to the .ssh folder
+			cd .ssh
+2- create a config file
+			vi config
+3- paste the following inside the confi file
+			Host *
+				AddKeysToAgent yes
+				IdentityFile ~/.ssh/<privateKeyName>
+				IdentityFile ~/.ssh/<publicKeyName(without the .pub)>
+
+
+			Host <host address>
+				ForwardAgent yes
+
+4- in the remote machine (not the supercomputer) creade a .ssh directory
+			mkdir .ssh
+5- create a config file
+			vi config
+6- paste the following inside the config file
+			Host bridges.psc.xsede.org
+				ForwardAgent yes
+
+			Host comet.sdsc.xsede.org
+				ForwardAgent yes
+7- create an authorized keys file 
+			vi authorized_keys
+8- paste your public key into it
+

@@ -54,7 +54,7 @@ if __name__ == '__main__':
         res_dict = {
             'resource': 'local.localhost',
             'walltime': 100,
-            'cpus': 4
+            'cpus': 128
         }
         # Assign resource request description to the Application Manager
         appman.resource_desc = res_dict
