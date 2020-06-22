@@ -21,45 +21,34 @@ port = int(os.environ.get('RMQ_PORT', 5672))
 username = os.environ.get('RMQ_USERNAME', 'esraa')
 password = os.environ.get('RMQ_PASSWORD', '4U4bc6sxyJfHvbdP')
 
-def generate_pipline(stages, tasks_per_stage):
-    p = Pipeline()
-
-    ##Create 8 stages each with one task
-    for s_cnt in range(stages):
-        s= Stage()
-        s.name = 'stage %s' %(s_cnt+1)
-
-        for t_cnt in range(tasks_per_stage):
-            t = Task()
-            t.name = 'task %s' %(t_cnt+1)    
-            t.executable = '/bin/sleep'
-            t.arguments = ['100']
-            # Add the Task to the Stage
-            s.add_tasks(t)
-    # Add Stage to the Pipeline
-        p.add_stages(s)
-
-    return p
-
-
-
-
 if __name__ == '__main__':
     total_time = []
     run_time = []
     terminateTimeArray=[]
 
 
+    #for i in range(4):
+
     start_time = time.time()
-    piplines=[]
-
-    for i in range(8):
-        pipline = generate_pipline(stages = 2, tasks_per_stage = 8)
-        piplines.append(pipline)
-
     
+    # Create a Pipeline object
+    p = Pipeline()
+    # Create a Stage object
+    s = Stage()
+    # Create Tasks
+    for cnt in range(128):
+        # Create a Task object
+        t = Task()
+        t.name = 'task %s' %(cnt+1)  
 
+        #The task does nothing ("sleeps") for one second  
+        t.executable = '/bin/sleep'
+        t.arguments = ['1']
+        # Add the Task to the Stage
+        s.add_tasks(t)
 
+    # Add Stage to the Pipeline
+    p.add_stages(s)
     # Create Application Manager
     appman = AppManager(hostname=hostname, port=port, autoterminate=False, username=username, password=password)
     # Create a dictionary describe four mandatory keys:
@@ -77,7 +66,7 @@ if __name__ == '__main__':
     appman.resource_desc = res_dict
     # Assign the workflow as a set or list of Pipelines to the Application Manager
     # Note: The list order is not guaranteed to be preserved
-    appman.workflow = set([piplines])
+    appman.workflow = set([p])
     # Run the Application Manager
     run_time_start= time.time()
     appman.run()
