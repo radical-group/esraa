@@ -38,7 +38,7 @@ if __name__ == '__main__':
         # Create a Stage object
         s = Stage()
         # Create Tasks
-        for cnt in range(1):
+        for cnt in range(32):
             # Create a Task object
             t = Task()
             t.name = 'task %s' %(cnt+1)  
@@ -53,21 +53,6 @@ if __name__ == '__main__':
         p.add_stages(s)
 
 
-        s2 = Stage()
-        # Create Tasks
-        for cnt in range(1):
-            # Create a Task object
-            t = Task()
-            t.name = 'task %s' %(cnt+1)  
-
-            #The task does nothing ("sleeps") for one second  
-            t.executable = '/bin/sleep'
-            t.arguments = ['100']
-            # Add the Task to the Stage
-            s2.add_tasks(t)
-
-        # Add Stage to the Pipeline
-        p.add_stages(s2)
 
         # Create Application Manager
         appman = AppManager(hostname=hostname, port=port, autoterminate=False, username=username, password=password)

@@ -10,7 +10,7 @@ os.environ['RADICAL_ENTK_PROFILE'] = "True"
 os.environ['RADICAL_LOG_LVL'] = "DEBUG"
 os.environ['RADICAL_LOG_TGT'] = "radical.log"
 os.environ['RADICAL_PROFILE'] = "TRUE"
-os.environ['RADICAL_PILOT_DBURL'] = "mongodb://esraa:'<pass>'@129.114.17.185:27017/esraa"
+os.environ['RADICAL_PILOT_DBURL'] = "mongodb://esraa:pass@129.114.17.185:27017/esraa"
 # Description of how the RabbitMQ process is accessible
 # No need to change/set any variables if you installed RabbitMQ has a system
 # process. If you are running RabbitMQ under a docker container or another
@@ -19,7 +19,7 @@ os.environ['RADICAL_PILOT_DBURL'] = "mongodb://esraa:'<pass>'@129.114.17.185:270
 hostname = os.environ.get('RMQ_HOSTNAME', 'localhost')
 port = int(os.environ.get('RMQ_PORT', 5672))
 username = os.environ.get('RMQ_USERNAME', 'esraa')
-password = os.environ.get('RMQ_PASSWORD', '<pass>')
+password = os.environ.get('RMQ_PASSWORD', 'pass')
 
 if __name__ == '__main__':
     total_time = []
@@ -38,8 +38,10 @@ if __name__ == '__main__':
         # Create a Stage object
         s = Stage()
         # Create Tasks
-        for cnt in range(number_of_cores[i]):
+        # Create Tasks
+        for cnt in range(number_of_cores[i]*4):
             # Create a Task object
+            s = Stage()
             t = Task()
             t.name = 'task %s' %(cnt+1)  
 
@@ -48,27 +50,8 @@ if __name__ == '__main__':
             t.arguments = ['100']
             # Add the Task to the Stage
             s.add_tasks(t)
-
-        # Add Stage to the Pipeline
         p.add_stages(s)
-
-
-        s2 = Stage()
-        # Create Tasks
-        for cnt in range(number_of_cores[i]):
-            # Create a Task object
-            t = Task()
-            t.name = 'task %s' %(cnt+1)  
-
-            #The task does nothing ("sleeps") for one second  
-            t.executable = '/bin/sleep'
-            t.arguments = ['100']
-            # Add the Task to the Stage
-            s2.add_tasks(t)
-
-        # Add Stage to the Pipeline
-        p.add_stages(s2)
-
+            
         # Create Application Manager
         appman = AppManager(hostname=hostname, port=port, autoterminate=False, username=username, password=password)
         # Create a dictionary describe four mandatory keys:
@@ -78,7 +61,7 @@ if __name__ == '__main__':
             'resource': 'xsede.comet_ssh',
             'project' : 'unc100',
             'queue' : 'compute',
-            'walltime': 30,
+            'walltime': 70,
             'cpus': number_of_cores[i],
             'access_schema': 'gsissh'
             }        
