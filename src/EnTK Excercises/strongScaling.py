@@ -26,22 +26,20 @@ if __name__ == '__main__':
     run_time = []
     terminateTimeArray=[]
 
-    number_of_cores=[1,4,16,32,64]
+    number_of_cores=[1,2,4,8,16,32,64]
 
 
-    for i in range(5):
+    for i in range(7):
 
         start_time = time.time()
         
         # Create a Pipeline object
         p = Pipeline()
         # Create a Stage object
-        
-        
+        s = Stage()
         # Create Tasks
-        for cnt in range(16):
+        for cnt in range(32):
             # Create a Task object
-            s = Stage()
             t = Task()
             t.name = 'task %s' %(cnt+1)  
 
@@ -50,7 +48,10 @@ if __name__ == '__main__':
             t.arguments = ['100']
             # Add the Task to the Stage
             s.add_tasks(t)
-            p.add_stages(s)
+
+        # Add Stage to the Pipeline
+        p.add_stages(s)
+
 
 
         # Create Application Manager
