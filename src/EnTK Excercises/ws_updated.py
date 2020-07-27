@@ -38,7 +38,7 @@ if __name__ == '__main__':
         Pipelines=[]
 
         # Create piplines. #piplines = 4 * #cores
-        for cnt in range(10):
+        for cnt in range(number_of_cores[i]*4):
             p = Pipeline()
 
             #Create the stages in a pipline
@@ -86,7 +86,7 @@ if __name__ == '__main__':
         # Note: The list order is not guaranteed to be preserved
         appman.workflow = set(Pipelines)
         # Run the Application Manager
-        run_time_start=time.time()
+        
         appman.run()
         terminateTimeStart=time.time()
         appman.terminate()
@@ -94,7 +94,7 @@ if __name__ == '__main__':
 
         run_time.append(time.time()-run_time_start)
         total_time.append(time.time()-start_time)
-        print("runTime",run_time,"number_of_cores", number_of_cores[i])
+        print("TTX",total_time,"runTime",run_time,"number_of_cores", number_of_cores[i])
 
 
     print("FINAL--->","total_time",total_time,"runTime",run_time,"terminateTimeArray", terminateTimeArray)

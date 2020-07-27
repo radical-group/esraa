@@ -38,11 +38,11 @@ if __name__ == '__main__':
         Pipelines=[]
 
         # Create piplines. #piplines = 4 * #cores
-        for cnt in range(10):
+        for cnt in range(30):
             p = Pipeline()
 
             #Create the stages in a pipline
-            for cnt2 in range (12):
+            for cnt2 in range (4):
                 # Create a Stage object
                 s = Stage()
                 # Create a Task object
